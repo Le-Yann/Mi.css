@@ -1,0 +1,27 @@
+.ui-checkmark::before{content:"\2713 ";}
+.ui-cross::before{content:"\2717 ";}
+.ui-lock::before{content:"\1F512 ";}
+.ui-key::before{content:"\1F511 ";}
+.ui-sandglass::before{content:"\231B ";}
+.ui-cup::before{content:"\1F375 ";}
+.ui-water::before{content:"\1F4A7 ";}
+.ui-up::before{content:"\25B2 ";}
+.ui-right::before,.ui-play::before{content:"\25B6 ";}
+.ui-down::before{content:"\25BC ";}
+.ui-left::before{content:"\25C0 ";}
+.ui-stop::before{content:"\25A0 ";}
+.ui-record::before{content:"\25CF ";}
+.ui-pause::before{content:"\258E\258E ";letter-spacing: -0.6em;}
+.ui-next::before{content:"\25B8\25B8";letter-spacing: -0.3em;padding-right:0.4em;}
+.ui-prev::before{content:"\25C2\25C2";letter-spacing: -0.3em;padding-right:0.4em;}
+.ui-man::before{content:"\1F6B9 ";}
+.ui-woman::before{content:"\1F6BA ";}
+.ui-user::before{content:"\1F464 ";}
+.ui-hot::before{content:"\2668 ";}
+.ui-cold::before{content:"\2744 ";}
+.ui-bulb::before{content:"\1F4A1 ";}
+.ui-forbidden::before{content:"\20E0 ";}
+.ui-phone::before{content:"\260E ";}
+.ui-mail::before{content:"\2709 ";}
+.ui-edit::before{content:"\270E ";}
+.ui-cut::before{content:"\2702 ";}
