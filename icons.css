@@ -1,3 +1,18 @@
+[data-icon]:before {
+  content: attr(data-icon);
+  speak: none; /* Not to be trusted, but hey. */
+}
+
+.icon-alone {
+  display: inline-block; /* Chrome 19 was weird with clickability without this */
+}
+
+.screen-reader-text { /* Reusable, toolbox kind of class */
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
 .ui-checkmark::before{content:"\2713 ";}
 .ui-cross::before{content:"\2717 ";}
 .ui-lock::before{content:"\1F512 ";}
