@@ -6,55 +6,47 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script type="text/javascript">
             jQuery( document ).ready(function($) {
-                generate = function(start) {
-					$('#autogen').html('');
-					$('#start').val(start);
-					for (i=start;i<start+step;i++) {
-						$('#autogen').html($('#autogen').html()+'<div class="icon-code block smooth"><span data-icon="&#x'+i+';">&amp;#x'+i+';</span><div>');
-						hex = i.toString(16);
-						if (i!=hex) $('#autogen').html($('#autogen').html()+'<div class="icon-code block smooth"><span data-icon="&#x'+hex+';">&amp;#x'+hex+';</span><div>');
-					}
-				};
-				debut = 128167;
-				step = 30
-				generate(debut);
-				
-				$('#start').on('change',function(){
-					if (parseInt($('#start').val()).toString()==$('#start').val())
-						debut=parseInt($('#start').val());
-					else
-						debut=parseInt($('#start').val(),16);
-					generate(debut);
-				});
-				$('#more').on('click',function(){
-					debut+=step;
-					generate(debut);
-				});
-				$('#moremore').on('click',function(){
-					debut+=(step*10);
-					generate(debut);
-				});
-				$('#less').on('click',function(){
-					debut-=step;
-					generate(debut);
-				});
-				$('#lessless').on('click',function(){
-					debut-=(step*10);
-					generate(debut);
-				});
+                generate = function(start,offset) {
+                    $('#autogen').html('');
+                    start=parseInt(start,16);
+                    if (offset != undefined) {
+                        console.log(offset)
+                        start = start+offset;
+                    }
+                    $('#start').val(start.toString(16));
+                    for (i=start;i<start+step;i++) {
+                        hex = i.toString(16);
+                        $('#autogen').html($('#autogen').html()+'<div class="icon-code block smooth"><span data-icon="&#x'+hex+';"></span><span>&amp;#x'+hex+';</span><div>');
+                    }
+                    font = $('#police').val();
+                    couleur = $('#icon-color').val();
+                    taille = $('#icon-size').val();
+                    $('#autogen div span[data-icon]').css('font-family',font);
+                    $('#autogen div span[data-icon]').css('color',couleur);
+                    $('#autogen div span[data-icon]').css('font-size',taille+'%');
+                };
+                debut = 21;
+                step = 60
+                generate(debut);
+                
+                $('#start,#police, #icon-color, #icon-size').on('change',function(){
+                    generate($('#start').val());
+                });
+                $('.btn-small').on('click',function(){
+                    generate($('#start').val(),parseInt($(this).attr('data-step')));
+                });
             });
         </script>
-		<style>
-		body {font-size:1em;}
-		#btnbar {text-align:center;}
-		#autogen {font-size:1.5em;}
-		.icon-code {width:15%; border-radius:0.2em;padding:0.5em;}
-		[data-icon]:before {margin:0.5em;padding:0.2em;}
-		.icon-code:hover {background-color:#d4d5d7}
-		.icon-code:hover [data-icon]:before {background-color:#fff; border-radius:0.2em;}
-		</style>
+        <style>
+            body {font-size:1em;}
+            #autogen {font-size:1.5em;}
+            .icon-code {width:15%; border-radius:0.2em;padding:0.5em;}
+            [data-icon]:before {margin:0.5em;padding:0.2em;}
+            .icon-code:hover {background-color:#d4d5d7}
+            .icon-code:hover [data-icon]:before {background-color:#fff; border-radius:0.2em;}
+        </style>
     </head>
-    <body>
+    <body class="block-group">
     <!--<span class="ui-checkmark">coche</span><br/>
     <span class="ui-cross">croix</span><br/>
     <span class="ui-lock">cadenas</span><br/>
@@ -83,13 +75,26 @@
     <span class="ui-mail">mail</span><br/>
     <span class="ui-edit">edition</span><br/>
     <span class="ui-cut">couper</span><br/>-->
-	<div id="btnbar" class="block-group">
-		<span id="lessless" class="btn btn-c" data-icon="&#x25c2;&#x25c2;"></span>
-		<span id="less" class="btn btn-c" data-icon="&#x25c2;"></span>
-		<input id="start" type="text"></input>
-		<span id="more" class="btn btn-a" data-icon="&#x25B8;"></span>
-		<span id="moremore" class="btn btn-a" data-icon="&#x25B8;&#x25B8;"></span>
-	</div>
-    <div id="autogen" class="block-group"></div>
+    <div id="btnbar" class="block block-group" style="width:20%">
+        <fieldset class="block">
+            <legend>Navigation</legend>
+            <span class="btn-small btn-c" data-icon="&#x25c2;&#x25c2;" data-step="-300"></span>
+            <span class="btn-small btn-c" data-icon="&#x25c2;" data-step="-60"></span>
+            <input id="start" type="text"></input>
+            <span class="btn-small btn-a" data-icon="&#x25B8;" data-step="60"></span>
+            <span class="btn-small btn-a" data-icon="&#x25B8;&#x25B8;" data-step="300"></span>
+        </fieldset>
+        <fieldset class="block block-group">
+            <legend><span data-icon="&#x40;" style="font-family:webdings"></span>R&eacute;glages</legend>
+            <label for="police" class="block">Police</label><select id="police" class="block">
+                <option></option>
+                <option selected>wingdings</option>
+                <option>webdings</option>
+            </select>
+            <label for="icon-color" class="block">Couleur</label><input id="icon-color" type="color" value="#8000FF" style="padding:0;" class="block" />
+            <label for="icon-Size" class="block">Taille</label><input id="icon-size" type="range" value="100" max="500" min="50" step="50" class="block" />
+        </fieldset>
+    </div>
+    <div id="autogen" class="block block-group" style="width:80%;"></div>
     </body>
 </html>
