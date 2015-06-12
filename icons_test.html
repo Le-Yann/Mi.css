@@ -9,14 +9,14 @@
                 generate = function(start) {
 					$('#autogen').html('');
 					$('#start').val(start);
-					console.log('reinit done');
-					for (i=start;i<start+25;i++) {
-						$('#autogen').html($('#autogen').html()+'<div class="quarter block"><span data-icon="&#x'+i+';">&amp;#x'+i+';</span><div>');
+					for (i=start;i<start+step;i++) {
+						$('#autogen').html($('#autogen').html()+'<div class="icon-code block smooth"><span data-icon="&#x'+i+';">&amp;#x'+i+';</span><div>');
 						hex = i.toString(16);
-						if (i!=hex) $('#autogen').html($('#autogen').html()+'<div class="quarter block"><span data-icon="&#x'+hex+';">&amp;#x'+hex+';</span><div>');
+						if (i!=hex) $('#autogen').html($('#autogen').html()+'<div class="icon-code block smooth"><span data-icon="&#x'+hex+';">&amp;#x'+hex+';</span><div>');
 					}
 				};
 				debut = 128167;
+				step = 30
 				generate(debut);
 				
 				$('#start').on('change',function(){
@@ -27,32 +27,34 @@
 					generate(debut);
 				});
 				$('#more').on('click',function(){
-					debut+=25;
+					debut+=step;
 					generate(debut);
 				});
 				$('#moremore').on('click',function(){
-					debut+=250;
+					debut+=(step*10);
 					generate(debut);
 				});
 				$('#less').on('click',function(){
-					debut-=25;
+					debut-=step;
 					generate(debut);
 				});
 				$('#lessless').on('click',function(){
-					debut-=250;
+					debut-=(step*10);
 					generate(debut);
 				});
             });
         </script>
 		<style>
+		body {font-size:1em;}
 		#btnbar {text-align:center;}
-		.quarter {width:25%; border-radius:0.2em;padding:0.5em;}
+		#autogen {font-size:1.5em;}
+		.icon-code {width:15%; border-radius:0.2em;padding:0.5em;}
 		[data-icon]:before {margin:0.5em;padding:0.2em;}
-		.quarter:hover {background-color:#d4d5d7}
-		.quarter:hover [data-icon]:before {background-color:#fff; border-radius:0.2em;}
+		.icon-code:hover {background-color:#d4d5d7}
+		.icon-code:hover [data-icon]:before {background-color:#fff; border-radius:0.2em;}
 		</style>
     </head>
-    <body style="font-size:2em;">
+    <body>
     <!--<span class="ui-checkmark">coche</span><br/>
     <span class="ui-cross">croix</span><br/>
     <span class="ui-lock">cadenas</span><br/>
@@ -82,11 +84,11 @@
     <span class="ui-edit">edition</span><br/>
     <span class="ui-cut">couper</span><br/>-->
 	<div id="btnbar" class="block-group">
-		<input id="lessless" type="button" value="--" class="btn btn-c"></input>
-		<input id="less" type="button" value="-" class="btn btn-c"></input>
+		<span id="lessless" class="btn btn-c" data-icon="&#x25c2;&#x25c2;"></span>
+		<span id="less" class="btn btn-c" data-icon="&#x25c2;"></span>
 		<input id="start" type="text"></input>
-		<input id="more" type="button" value="+" class="btn btn-a"></input>
-		<input id="moremore" type="button" value="++" class="btn btn-a"></input>
+		<span id="more" class="btn btn-a" data-icon="&#x25B8;"></span>
+		<span id="moremore" class="btn btn-a" data-icon="&#x25B8;&#x25B8;"></span>
 	</div>
     <div id="autogen" class="block-group"></div>
     </body>
