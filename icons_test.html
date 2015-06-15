@@ -1,7 +1,6 @@
 <html>
     <head>
         <link href="external/custom.min.css" rel="stylesheet" type="text/css" />
-        <link href="external/pocketgrid.min.css" rel="stylesheet" type="text/css" />
         <link href="icons.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script type="text/javascript">
@@ -26,7 +25,7 @@
                     $('#autogen div span[data-icon]').css('font-size',taille+'%');
                 };
                 debut = 21;
-                step = 60
+                step = 28
                 generate(debut);
                 
                 $('#start ,#police ,#policename ,#icon-color ,#icon-size').on('change',function(){
@@ -57,10 +56,12 @@
 				align-items: stretch;
 				margin-right: 1em;
 			}
+			#reglage summary:focus {
+				outline:none;
+			}
 			#reglage[open] {
 				flex: 1 0 11em;
 				align-self: stretch;
-				widht:calc(100vw - 15px);
 			}
 			#reglage section{
 				flex-flow: row nowrap;
@@ -75,7 +76,7 @@
 				display: flex;
 				flex-flow: row wrap;
 				font-size:1.5em;
-				overflow:scroll;
+				overflow-y:scroll;
 			}
 			footer {
 				flex: 0 0 2em;
@@ -152,11 +153,11 @@
 	</details>
     <div id="autogen"></div>
 	<footer>
-		<span class="btn-small btn-c" data-icon="&#x25c2;&#x25c2;" data-step="-300"></span>
-		<span class="btn-small btn-c" data-icon="&#x25c2;" data-step="-60"></span>
+		<span class="btn-small btn-c" data-icon="&#x25c2;&#x25c2;" data-step="-140"></span>
+		<span class="btn-small btn-c" data-icon="&#x25c2;" data-step="-28"></span>
 		<input id="start" type="text"></input>
-		<span class="btn-small btn-a" data-icon="&#x25B8;" data-step="60"></span>
-		<span class="btn-small btn-a" data-icon="&#x25B8;&#x25B8;" data-step="300"></span>
+		<span class="btn-small btn-a" data-icon="&#x25B8;" data-step="28"></span>
+		<span class="btn-small btn-a" data-icon="&#x25B8;&#x25B8;" data-step="140"></span>
 	</footer>
     </body>
 </html>
