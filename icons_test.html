@@ -16,9 +16,9 @@
                     $('#start').val(start.toString(16));
                     for (i=start;i<start+step;i++) {
                         hex = i.toString(16);
-                        $('#autogen').html($('#autogen').html()+'<div class="icon-code block smooth"><span data-icon="&#x'+hex+';"></span><span>&amp;#x'+hex+';</span><div>');
+                        $('#autogen').html($('#autogen').html()+'<div class="icon-code smooth"><span data-icon="&#x'+hex+';"></span><span>&amp;#x'+hex+';</span><div>');
                     }
-                    font = $('#police').val();
+                    font = ($('#policename').val()=="") ? $('#police').val() : $('#policename').val();
                     couleur = $('#icon-color').val();
                     taille = $('#icon-size').val();
                     $('#autogen div span[data-icon]').css('font-family',font);
@@ -29,7 +29,7 @@
                 step = 60
                 generate(debut);
                 
-                $('#start,#police, #icon-color, #icon-size').on('change',function(){
+                $('#start ,#police ,#policename ,#icon-color ,#icon-size').on('change',function(){
                     generate($('#start').val());
                 });
                 $('.btn-small').on('click',function(){
@@ -38,10 +38,63 @@
             });
         </script>
         <style>
-            body {font-size:1em;}
-            #autogen {font-size:1.5em;}
-            .icon-code {width:15%; border-radius:0.2em;padding:0.5em;}
-            [data-icon]:before {margin:0.5em;padding:0.2em;}
+            html {
+				box-sizing: border-box;
+			}
+			*, *:before, *:after {
+				box-sizing: inherit;
+			}
+			body {
+				display:flex;
+				flex-flow: column nowrap;
+				font-size:1em;
+				height:calc(100vh - 15px);
+			}
+			#reglage {
+				flex: 1 0 2em;
+				align-self: flex-end;
+				flex-flow: column nowrap;
+				align-items: stretch;
+				margin-right: 1em;
+			}
+			#reglage[open] {
+				flex: 1 0 11em;
+				align-self: stretch;
+				widht:calc(100vw - 15px);
+			}
+			#reglage section{
+				flex-flow: row nowrap;
+				align-items: center;
+				text-align: center;
+			}
+			#reglage section input {
+				width:calc(100% - 30px);
+			}
+            #autogen {
+				flex: 0 1 auto;
+				display: flex;
+				flex-flow: row wrap;
+				font-size:1.5em;
+				overflow:scroll;
+			}
+			footer {
+				flex: 0 0 2em;
+				text-align:center;
+			}
+            .icon-code {
+				display : flex;
+				flex-flow: column nowrap;
+				align-items: center;
+				width:8em;
+				border-radius:10px;
+				padding:0.5em;
+			}
+			.icon-code span:not([data-icon]) {
+				margin:10px;
+			}
+            [data-icon]:before {
+				margin:10px;padding:5px;
+			}
             .icon-code:hover {background-color:#d4d5d7}
             .icon-code:hover [data-icon]:before {background-color:#fff; border-radius:0.2em;}
         </style>
@@ -75,26 +128,35 @@
     <span class="ui-mail">mail</span><br/>
     <span class="ui-edit">edition</span><br/>
     <span class="ui-cut">couper</span><br/>-->
-    <div id="btnbar" class="block block-group" style="width:20%">
-        <fieldset class="block">
-            <legend>Navigation</legend>
-            <span class="btn-small btn-c" data-icon="&#x25c2;&#x25c2;" data-step="-300"></span>
-            <span class="btn-small btn-c" data-icon="&#x25c2;" data-step="-60"></span>
-            <input id="start" type="text"></input>
-            <span class="btn-small btn-a" data-icon="&#x25B8;" data-step="60"></span>
-            <span class="btn-small btn-a" data-icon="&#x25B8;&#x25B8;" data-step="300"></span>
-        </fieldset>
-        <fieldset class="block block-group">
-            <legend><span data-icon="&#x40;" style="font-family:webdings"></span>R&eacute;glages</legend>
-            <label for="police" class="block">Police</label><select id="police" class="block">
-                <option></option>
-                <option selected>wingdings</option>
-                <option>webdings</option>
-            </select>
-            <label for="icon-color" class="block">Couleur</label><input id="icon-color" type="color" value="#8000FF" style="padding:0;" class="block" />
-            <label for="icon-Size" class="block">Taille</label><input id="icon-size" type="range" value="100" max="500" min="50" step="50" class="block" />
-        </fieldset>
-    </div>
-    <div id="autogen" class="block block-group" style="width:80%;"></div>
+	<details id="reglage" class="smooth">
+		<summary><span data-icon="&#x40;" style="font-family:webdings"></span>R&eacute;glages</summary>
+		<section>
+			<label for="policename">Police</label>
+			<input type="text" list="font-data" id="policename">
+			<datalist id="font-data">
+				<label for="police">ou s&eacute;l&eacute;ctionnez la ici :</label><select id="police">
+					<option></option>
+					<option selected>wingdings</option>
+					<option>webdings</option>
+				</select>
+			</datalist>
+			</section>
+		<section>
+			<label for="icon-color">Couleur</label>
+			<input id="icon-color" type="color" value="#8000FF" style="padding:0;" />
+		</section>
+		<section>
+			<label for="icon-Size">Taille</label>
+			<input id="icon-size" type="range" value="250" max="500" min="50" step="50" />
+		</section>
+	</details>
+    <div id="autogen"></div>
+	<footer>
+		<span class="btn-small btn-c" data-icon="&#x25c2;&#x25c2;" data-step="-300"></span>
+		<span class="btn-small btn-c" data-icon="&#x25c2;" data-step="-60"></span>
+		<input id="start" type="text"></input>
+		<span class="btn-small btn-a" data-icon="&#x25B8;" data-step="60"></span>
+		<span class="btn-small btn-a" data-icon="&#x25B8;&#x25B8;" data-step="300"></span>
+	</footer>
     </body>
 </html>
