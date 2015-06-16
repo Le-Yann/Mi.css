@@ -22,8 +22,16 @@
                     taille = $('#icon-size').val();
                     $('#autogen div span[data-icon]').css('font-family',font);
                     $('#autogen div span[data-icon]').css('color',couleur);
+					$('header').css('background-color',couleur);
                     $('#autogen div span[data-icon]').css('font-size',taille+'%');
                 };
+				rotateIcons = function() {
+					icons=["&#x1f375;",'&#x270e;'];
+					current_icon=parseInt($('h1').attr('data-icon-index'));
+					next_icon = (current_icon==icons.length-1) ? 0 : current_icon+1;
+					console.log(next_icon);
+					$('h1').replaceWith('<h1 data-icon="'+icons[next_icon]+'" data-icon-index="'+next_icon+'">Icons</h1>');
+				}
                 debut = 21;
                 step = 28
                 generate(debut);
@@ -34,6 +42,7 @@
                 $('.btn-small').on('click',function(){
                     generate($('#start').val(),parseInt($(this).attr('data-step')));
                 });
+				rotateIcons();
             });
         </script>
         <style>
@@ -49,27 +58,30 @@
 				font-size:1em;
 				height:calc(100vh - 15px);
 			}
+			header {
+				margin:1em;
+				color:#fff;
+				display:flex;
+				flex: 0 0 8em;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+			}
+			
 			#reglage {
-				flex: 0 0 2em;
-				align-self: flex-end;
+				flex: 0 0 15em;
 				flex-flow: column nowrap;
 				align-items: stretch;
-				margin-right: 1em;
-			}
-			#reglage summary:focus {
-				outline:none;
-			}
-			#reglage[open] {
-				flex: 1 0 11em;
-				align-self: stretch;
+				margin: 0.5em;
 			}
 			#reglage section{
+				display:flex;
 				flex-flow: row nowrap;
 				align-items: center;
 				text-align: center;
 			}
 			#reglage section input {
-				width:calc(100% - 30px);
+				flex:1;
+				color:#fff;
 			}
             #autogen {
 				flex: 1 1 auto;
@@ -100,64 +112,39 @@
             .icon-code:hover [data-icon]:before {background-color:#fff; border-radius:0.2em;}
         </style>
     </head>
-    <body class="block-group">
-    <!--<span class="ui-checkmark">coche</span><br/>
-    <span class="ui-cross">croix</span><br/>
-    <span class="ui-lock">cadenas</span><br/>
-    <span class="ui-key">cl&eacute;</span><br/>
-    <span class="ui-sandglass">sablier</span><br/>
-    <span class="ui-cup">tasse</span><br/>
-    <span class="ui-water">eau</span><br/>
-    <span class="ui-up">haut</span><br/>
-    <span class="ui-right">droite</span><br/>
-    <span class="ui-down">bas</span><br/>
-    <span class="ui-left">gauche</span><br/>
-    <span class="ui-play">lecture</span><br/>
-    <span class="ui-stop">stop</span><br/>
-    <span class="ui-record">enregistrement</span><br/>
-    <span class="ui-pause">pause</span><br/>
-    <span class="ui-next">suivant</span><br/>
-    <span class="ui-prev">pr&eacute;c&eacute;dent</span><br/>
-    <span class="ui-man">homme</span><br/>
-    <span class="ui-woman">femme</span><br/>
-    <span class="ui-user">utilisateur</span><br/>
-    <span class="ui-hot">chaud</span><br/>
-    <span class="ui-cold">froid</span><br/>
-    <span class="ui-bulb">ampoule</span><br/>
-    <span class="ui-forbidden">interdit</span><br/>
-    <span class="ui-phone">t&eacute;l&eacute;phone</span><br/>
-    <span class="ui-mail">mail</span><br/>
-    <span class="ui-edit">edition</span><br/>
-    <span class="ui-cut">couper</span><br/>-->
-	<details id="reglage" class="smooth">
-		<summary><span data-icon="&#x40;" style="font-family:webdings"></span>R&eacute;glages</summary>
-		<section>
-			<label for="policename">Police</label>
-			<input type="text" list="font-data" id="policename">
-			<datalist id="font-data">
-				<label for="police">ou s&eacute;l&eacute;ctionnez la ici :</label><select id="police">
-					<option></option>
-					<option selected>wingdings</option>
-					<option>webdings</option>
-				</select>
-			</datalist>
+    <body>
+		<header>
+			<h1 data-icon="&#x270e;" data-icon-index="1" class="smooth">Icons</h1>
+			<section id="reglage">
+				<span><span data-icon="&#x40;" style="font-family:webdings"></span>R&eacute;glages</span>
+				<section>
+					<label for="policename">Police&nbsp;</label>
+					<input type="text" list="font-data" id="policename">
+					<datalist id="font-data">
+						<label for="police">ou s&eacute;l&eacute;ctionnez la ici :&nbsp;</label><select id="police">
+							<option></option>
+							<option selected>wingdings</option>
+							<option>webdings</option>
+						</select>
+					</datalist>
+					</section>
+				<section>
+					<label for="icon-color">Couleur&nbsp;</label>
+					<input id="icon-color" type="color" value="#8000FF" style="padding:0;" />
+				</section>
+				<section>
+					<label for="icon-Size">Taille&nbsp;</label>
+					<input id="icon-size" type="range" value="250" max="500" min="50" step="50" />
+				</section>
 			</section>
-		<section>
-			<label for="icon-color">Couleur</label>
-			<input id="icon-color" type="color" value="#8000FF" style="padding:0;" />
-		</section>
-		<section>
-			<label for="icon-Size">Taille</label>
-			<input id="icon-size" type="range" value="250" max="500" min="50" step="50" />
-		</section>
-	</details>
-    <div id="autogen"></div>
-	<footer>
-		<span class="btn-small btn-c" data-icon="&#x25c2;&#x25c2;" data-step="-140"></span>
-		<span class="btn-small btn-c" data-icon="&#x25c2;" data-step="-28"></span>
-		<input id="start" type="text"></input>
-		<span class="btn-small btn-a" data-icon="&#x25B8;" data-step="28"></span>
-		<span class="btn-small btn-a" data-icon="&#x25B8;&#x25B8;" data-step="140"></span>
-	</footer>
+		</header>
+		<div id="autogen"></div>
+		<footer>
+			<span class="btn-small btn-c" data-icon="&#x25c2;&#x25c2;" data-step="-140"></span>
+			<span class="btn-small btn-c" data-icon="&#x25c2;" data-step="-28"></span>
+			<input id="start" type="text"></input>
+			<span class="btn-small btn-a" data-icon="&#x25B8;" data-step="28"></span>
+			<span class="btn-small btn-a" data-icon="&#x25B8;&#x25B8;" data-step="140"></span>
+		</footer>
     </body>
 </html>
