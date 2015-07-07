@@ -1,150 +1,126 @@
+<!doctype html>
 <html>
-    <head>
-        <link href="external/custom.min.css" rel="stylesheet" type="text/css" />
-        <link href="icons.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script type="text/javascript">
-            jQuery( document ).ready(function($) {
-                generate = function(start,offset) {
-                    $('#autogen').html('');
-                    start=parseInt(start,16);
-                    if (offset != undefined) {
-                        console.log(offset)
-                        start = start+offset;
-                    }
-                    $('#start').val(start.toString(16));
-                    for (i=start;i<start+step;i++) {
-                        hex = i.toString(16);
-                        $('#autogen').html($('#autogen').html()+'<div class="icon-code smooth"><span data-icon="&#x'+hex+';"></span><span>&amp;#x'+hex+';</span><div>');
-                    }
-                    font = ($('#policename').val()=="") ? $('#police').val() : $('#policename').val();
-                    couleur = $('#icon-color').val();
-                    taille = $('#icon-size').val();
-                    $('#autogen div span[data-icon]').css('font-family',font);
-                    $('#autogen div span[data-icon]').css('color',couleur);
-					$('header').css('background-color',couleur);
-                    $('#autogen div span[data-icon]').css('font-size',taille+'%');
-                };
-				rotateIcons = function() {
-					icons=["&#x1f375;",'&#x270e;'];
-					current_icon=parseInt($('h1').attr('data-icon-index'));
-					next_icon = (current_icon==icons.length-1) ? 0 : current_icon+1;
-					console.log(next_icon);
-					$('h1').replaceWith('<h1 data-icon="'+icons[next_icon]+'" data-icon-index="'+next_icon+'">Icons</h1>');
-				}
-                debut = 21;
-                step = 28
-                generate(debut);
-                
-                $('#start ,#police ,#policename ,#icon-color ,#icon-size').on('change',function(){
-                    generate($('#start').val());
-                });
-                $('.btn-small').on('click',function(){
-                    generate($('#start').val(),parseInt($(this).attr('data-step')));
-                });
-				rotateIcons();
-            });
-        </script>
-        <style>
-            html {
-				box-sizing: border-box;
-			}
-			*, *:before, *:after {
-				box-sizing: inherit;
-			}
-			body {
-				display:flex;
-				flex-flow: column nowrap;
-				font-size:1em;
-				height:calc(100vh - 15px);
-			}
-			header {
-				margin:1em;
-				color:#fff;
-				display:flex;
-				flex: 0 0 8em;
-				flex-flow: row nowrap;
-				justify-content: space-between;
-			}
-			
-			#reglage {
-				flex: 0 0 15em;
-				flex-flow: column nowrap;
-				align-items: stretch;
-				margin: 0.5em;
-			}
-			#reglage section{
-				display:flex;
-				flex-flow: row nowrap;
-				align-items: center;
-				text-align: center;
-			}
-			#reglage section input {
-				flex:1;
-				color:#fff;
-			}
-            #autogen {
-				flex: 1 1 auto;
-				display: flex;
-				flex-flow: row wrap;
-				font-size:1.5em;
-				overflow-y:scroll;
-			}
-			footer {
-				flex: 0 0 2em;
-				text-align:center;
-			}
-            .icon-code {
-				display : flex;
-				flex-flow: column nowrap;
-				align-items: center;
-				width:8em;
-				border-radius:10px;
-				padding:0.5em;
-			}
-			.icon-code span:not([data-icon]) {
-				margin:10px;
-			}
-            [data-icon]:before {
-				margin:10px;padding:5px;
-			}
-            .icon-code:hover {background-color:#d4d5d7}
-            .icon-code:hover [data-icon]:before {background-color:#fff; border-radius:0.2em;}
-        </style>
-    </head>
-    <body>
-		<header>
-			<h1 data-icon="&#x270e;" data-icon-index="1" class="smooth">Icons</h1>
-			<section id="reglage">
-				<span><span data-icon="&#x40;" style="font-family:webdings"></span>R&eacute;glages</span>
-				<section>
-					<label for="policename">Police&nbsp;</label>
-					<input type="text" list="font-data" id="policename">
-					<datalist id="font-data">
-						<label for="police">ou s&eacute;l&eacute;ctionnez la ici :&nbsp;</label><select id="police">
-							<option></option>
-							<option selected>wingdings</option>
-							<option>webdings</option>
-						</select>
-					</datalist>
-					</section>
-				<section>
-					<label for="icon-color">Couleur&nbsp;</label>
-					<input id="icon-color" type="color" value="#8000FF" style="padding:0;" />
-				</section>
-				<section>
-					<label for="icon-Size">Taille&nbsp;</label>
-					<input id="icon-size" type="range" value="250" max="500" min="50" step="50" />
-				</section>
-			</section>
-		</header>
-		<div id="autogen"></div>
-		<footer>
-			<span class="btn-small btn-c" data-icon="&#x25c2;&#x25c2;" data-step="-140"></span>
-			<span class="btn-small btn-c" data-icon="&#x25c2;" data-step="-28"></span>
-			<input id="start" type="text"></input>
-			<span class="btn-small btn-a" data-icon="&#x25B8;" data-step="28"></span>
-			<span class="btn-small btn-a" data-icon="&#x25B8;&#x25B8;" data-step="140"></span>
-		</footer>
-    </body>
+<head>
+  <meta name="viewport" content="initial-scale=1">
+  <link href="mi.css" rel="stylesheet" type="text/css"></link>
+  <style>
+  	body {
+		  height:calc(100vh - 15px);
+		}
+		header {
+		  margin:1em;
+		  padding:0.5em;
+		  color:#fff;
+		  justify-content: space-between;
+		}
+		#reglage {
+		  flex: 0 0 15em;
+		}
+		#reglage section {
+		  align-items: center;
+		}
+		#reglage section input {
+		  flex:1;
+		}
+		#autogen {
+		  flex:1;
+		  align-content: space-between;
+		  overflow-y:scroll;
+		}
+		footer {
+		  flex: 0 0 2em;
+		  justify-content: center;
+		  align-items: center;
+		}
+		.icon-code {
+		  display : flex;
+		  flex-flow: column nowrap;
+		  align-items: center;
+		  width:8em;
+		  border-radius:10px;
+		  padding:0.5em;
+		}
+		.icon-code span:not(.ico) {
+		  margin:10px;
+		}
+		.icon-code:hover {
+		  background-color:#d4d5d7
+		}
+		.icon-code:hover .ico {
+		  background-color:#fff; border-radius:0.2em;
+		}
+  </style>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  	$(function () {
+		  generate = function(start,offset) {
+		    $('#autogen')[0].innerHTML='';
+		    start=parseInt(start,16);
+		    if (offset !== undefined) {
+		      //console.log(offset);
+		      start = start+offset;
+		    }
+		    $('#start')[0].value=start.toString(16);
+		    for (i=start;i<start+step;i++) {
+		      hex = i.toString(16);
+		      $('#autogen')[0].innerHTML+='<div class="icon-code smooth"><i class="ico">&#x'+hex+';</i><span>&amp;#x'+hex+';</span></div>';
+		    }
+		    font = ($('#policename')[0].value==="") ? $('#police')[0].value : $('#policename')[0].value;
+		    couleur = $('#icon-color')[0].value;
+		    taille = $('#icon-size')[0].value;
+		    $('#autogen div .ico').css('font-family',font);
+		    $('#autogen div .ico').css('color',couleur);
+		    $('header').css('background-color',couleur);
+		    $('#autogen div .ico').css('font-size',taille+'%');
+		  };
+	  debut = '1f375';
+	  step = 28;
+	  generate(debut);
+	  $('#start ,#police ,#policename ,#icon-color ,#icon-size').on('change',function(){
+	    console.log("-"+$('#start')[0].value);
+	    generate($('#start')[0].value);
+	  });
+	  $('.btn').on('click',function(){
+	    generate($('#start')[0].value,parseInt(this.dataset.step));
+	  });
+	});
+  </script>
+  <title>Test</title>
+</head>
+<body class="col">
+  <header class="row">
+    <h1><i class="ico">&#x1f375;</i>Icons</h1>
+    <section id="reglage">
+      <span><i class="ico" style="font-family:webdings">&#x40;</i> R&eacute;glages</span>
+      <section class="row">
+        <label for="policename">Police&nbsp;</label>
+        <input type="text" list="font-data" id="policename">
+        <datalist id="font-data">
+          <label for="police">ou s&eacute;l&eacute;ctionnez la ici :&nbsp;</label><select id="police">
+          <option></option>
+          <option>wingdings</option>
+          <option>webdings</option>
+          </select>
+        </datalist>
+      </section>
+      <section class="row">
+        <label for="icon-color">Couleur&nbsp;</label>
+        <input id="icon-color" type="color" value="#8000FF" style="padding:0;" />
+      </section>
+      <section class="row">
+        <label for="icon-Size">Taille&nbsp;</label>
+        <input id="icon-size" type="range" value="250" max="500" min="50" step="50" />
+      </section>
+    </section>
+  </header>
+  <section id="autogen" class="row s"></section>
+  <section><div class="msg info">lorem ipsum dolor sit amen</div></section>
+  <footer class="row">
+    <i class="btn ico danger" data-step="-140">&#x25c2;&#x25c2;</i>
+    <i class="btn ico warning" data-step="-28">&#x25c2;</i>
+    <input id="start" type="text" />
+    <i class="btn ico primary" data-step="28">&#x25B8;</i>
+    <i class="btn ico success" data-step="140">&#x25B8;&#x25B8;</i>
+  </footer>
+</body>
 </html>
